@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Burg'o'Matic</title>
+{% endblock %}
+
+{% block body %}
+
+{% block content %}
+  <h1>Hello, Bootstrap</h1>
+{% endblock %}
+
+
+<div class="row justify-content-center">
+    <h1 style="text-align: center">Burg'o'Matic</h1>
+        <div class="col-auto">
+            <table class="table table-responsive">
+            <tr>
+                <th>Sketch</th>
+                <th>Pick your ingredients</th>
+            </tr>
+                <tr>
+                    <td> topbread </td>
+                    <td> pick bread </td>
+                </tr>
+
+                <tr>
+                    <td> sauces </td>
+                    <td> pick main </td>
+                </tr>
+
+                <tr>
+                    <td> side </td>
+                    <td> pick side </td>
+                </tr>
+
+                <tr>
+                    <td> main </td>
+                    <td> pick sauces </td>
+                </tr>
+
+                <tr>
+                    <td> bottombread </td>
+                    <td> add to Order </td>
+                </tr>
+            </table>
+        </div>
+
+    <br>
+    {% if tasks|length < 1 %}
+    <h4 style="text-align: center">There are no oders. Create one below!</h4>
+    {% else %}
+    <table>
+        <tr>
+            <th>Order</th>
+            <th>Time</th>
+            <th>Actions</th>
+        </tr>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.content }}</td>
+                <td>
+                    {{ task.date_created.time().hour}} :
+                    {{task.date_created.time().minute}}
+                </td>
+                <td>
+                    <a href="/update/{{task.id}}">Update</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="/delete/{{task.id}}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    <div class="form">
+        <form action="/" method="POST">
+            <input type="text" name="content" id="content">
+            <input type="submit" value="Add Order">
+        </form>
+    </div>
+</div>
+{% endblock %}
